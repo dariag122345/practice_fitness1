@@ -1,0 +1,49 @@
+-- —хемы дл€ фитнес-клуба
+CREATE SCHEMA IF NOT EXISTS abonement;
+CREATE SCHEMA IF NOT EXISTS access_control;
+CREATE SCHEMA IF NOT EXISTS reporting;
+
+-- —хема abonement ---------------------------------------------
+
+--  лиенты фитнес-клуба
+CREATE TABLE abonement.clients (
+    id          serial          PRIMARY KEY,
+    name        text            NOT NULL,
+    phone       text
+);
+
+-- јбонементы / подписки клиентов
+CREATE TABLE abonement.subscriptions (
+    id              serial          PRIMARY KEY,
+    client_id       int,
+    plan_name       text,
+    start_date      date,
+    end_date        date
+);
+
+-- ѕлатежи по абонементам
+CREATE TABLE abonement.payments (
+    id                  serial          PRIMARY KEY,
+    subscription_id     int,
+    amount              money,
+    payment_date        date
+);
+
+-- —хема access_control ----------------------------------------
+
+-- “урникеты / контроль доступа
+CREATE TABLE access_control.turnstiles (
+    id          serial          PRIMARY KEY,
+    location    text,
+    status      text
+);
+
+-- —хема reporting ---------------------------------------------
+
+-- ќтчЄты по посещаемости
+CREATE TABLE reporting.visits (
+    id              serial          PRIMARY KEY,
+    client_id       int,
+    visit_date      timestamp,
+    visit_type      text
+);
